@@ -6,7 +6,8 @@ export default class FoodRepository {
   }
 
   async createFood(food) {
-    return foodModel.create(food);
+    const createdFood = await foodModel.create(food);
+    return createdFood;
   }
 
   async updateFood(id, food) {
