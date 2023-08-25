@@ -11,3 +11,14 @@ export class InvalidFoodTypeError extends Error {
     return { status: this.status, error: this.name, message: this.message };
   }
 }
+export class InvalidFoodIdError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "InvalidFoodIdError";
+    this.status = BAD_REQUEST;
+  }
+
+  getError() {
+    return { status: this.status, error: this.name, message: this.message };
+  }
+}

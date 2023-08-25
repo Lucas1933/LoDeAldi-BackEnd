@@ -1,11 +1,14 @@
 import { INTERNAL_SERVER_ERROR } from "../utils/httpReponses.js";
-import { InvalidFoodTypeError } from "../errors/foodErrors.js";
+import {
+  InvalidFoodTypeError,
+  InvalidFoodIdError,
+} from "../errors/foodErrors.js";
 /* Mapeo la instancia del error (key) con su respectivo metodo getError (value) encargado de construir 
   la respuesta
 */
 const errorHandlersMap = new Map([
-  InvalidFoodTypeError,
-  InvalidFoodTypeError.prototype.getError,
+  [InvalidFoodTypeError, InvalidFoodTypeError.prototype.getError],
+  [InvalidFoodIdError, InvalidFoodIdError.prototype.getError],
 ]);
 export default function errorHandler(err, req, res, next) {
   /* Obtengo el metodo mapeado con la instancia del error que llega al middleware*/

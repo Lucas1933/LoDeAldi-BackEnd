@@ -21,4 +21,14 @@ export default class FoodRepository {
     const deletedFood = await foodModel.findByIdAndDelete(id);
     return deletedFood;
   }
+
+  async isIdValid(id) {
+    const result = await foodModel.isIdValid(id);
+    return result;
+  }
+
+  async foodExists(id) {
+    const result = await foodModel.exists({ _id: id });
+    return result;
+  }
 }

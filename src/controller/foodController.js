@@ -20,15 +20,18 @@ export default class FoodController {
       payload: foods,
     });
   }
-  async updateFood(req, res) {
-    const id = req.params.foodId;
-    const food = req.body;
-    const updatedFood = await foodService.updateFood(id, food);
-    res.status(OK).send({
-      status: OK,
-      message: "Food updated succesfully",
-      payload: updatedFood,
-    });
+  async updateFood(req, res, next) {
+    try {
+      const id = req.params.foodId;
+      const food = req.body;
+      const updatedFood = await foodService.updateFood(id, food);
+      res.status(OK).send({
+        status: OK,
+        message: "Food updated succesfully",
+      });
+    } catch (error) {
+      next(error);
+    }
   }
 
   async deleteFood(req, res) {

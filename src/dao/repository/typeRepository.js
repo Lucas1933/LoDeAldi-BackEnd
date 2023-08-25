@@ -14,4 +14,9 @@ export default class TypeRepository {
     const types = await typeModel.find().lean();
     return types;
   }
+
+  async typeExists(type) {
+    const types = await typeModel.exists({ type });
+    return types;
+  }
 }
