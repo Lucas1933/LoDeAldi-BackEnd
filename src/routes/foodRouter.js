@@ -5,7 +5,7 @@ export default class FoodRouter extends BaseRouter {
   init() {
     this.post("/", foodController.createFood);
     this.get("/:type", foodController.getFood);
-    this.put("/:foodId", foodController.updateFood);
+    this.put("/", foodController.updateFood);
     this.delete("/:foodId", foodController.deleteFood);
   }
 }

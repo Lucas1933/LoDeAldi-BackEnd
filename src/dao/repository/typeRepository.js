@@ -10,6 +10,19 @@ export default class TypeRepository {
     return deletedType;
   }
 
+  async updateType(id, type) {
+    console.log(id, type);
+    const updatedType = await typeModel.findByIdAndUpdate(
+      id,
+      { type },
+      {
+        new: true,
+      }
+    );
+    console.log(updatedType);
+    return updatedType;
+  }
+
   async getTypes() {
     const types = await typeModel.find().lean();
     return types;
@@ -18,5 +31,9 @@ export default class TypeRepository {
   async typeExists(type) {
     const types = await typeModel.exists({ type });
     return types;
+  }
+  async getTypeById(id) {
+    const type = await typeModel.findById(id);
+    return type;
   }
 }

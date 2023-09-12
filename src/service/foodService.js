@@ -34,5 +34,10 @@ export default class FoodService {
       throw new InvalidFoodIdError(`the food id ${id} does not exists`);
     }
   }
+  async updateFoodsType(currentType, newType) {
+    const foods = await foodRepository.updateFoodsType(currentType, newType);
+    return foods;
+  }
+
   async isValidFood({ name, description, price, thumbnails }) {}
 }

@@ -22,7 +22,7 @@ export default class FoodController {
   }
   async updateFood(req, res, next) {
     try {
-      const id = req.params.foodId;
+      const id = req.body._id;
       const food = req.body;
       const updatedFood = await foodService.updateFood(id, food);
       res.status(OK).send({

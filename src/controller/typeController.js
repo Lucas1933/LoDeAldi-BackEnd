@@ -26,4 +26,19 @@ export default class TypeController {
       payload: types,
     });
   }
+
+  async updateType(req, res, next) {
+    try {
+      const id = req.body._id;
+      const type = req.body.type;
+      console.log(req.body);
+      const updatedType = await typeService.updateType(id, type);
+      res.status(OK).send({
+        status: OK,
+        message: "Food updated succesfully",
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
