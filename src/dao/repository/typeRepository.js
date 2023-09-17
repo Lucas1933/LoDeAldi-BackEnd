@@ -5,8 +5,8 @@ export default class TypeRepository {
     return createdType;
   }
 
-  async deleteType(type) {
-    const deletedType = await typeModel.deleteOne({ type });
+  async deleteType(id) {
+    const deletedType = await typeModel.findByIdAndDelete(id);
     return deletedType;
   }
 

@@ -9,8 +9,8 @@ export default class TypeService {
     return createdType;
   }
 
-  async deleteType(type) {
-    const deletedType = await typeRepository.deleteType(type);
+  async deleteType(typeId) {
+    const deletedType = await typeRepository.deleteType(typeId);
     return deletedType;
   }
 

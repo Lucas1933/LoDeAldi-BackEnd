@@ -5,7 +5,7 @@ export default class TypeRouter extends BaseRouter {
   init() {
     this.get("/", typeController.getTypes);
     this.post("/", typeController.createType);
-    this.delete("/", typeController.deleteType);
+    this.delete("/:typeId", typeController.deleteType);
     this.put("/", typeController.updateType);
   }
 }

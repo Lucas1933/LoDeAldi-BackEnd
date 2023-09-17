@@ -11,11 +11,11 @@ export default class TypeController {
     });
   }
   async deleteType(req, res) {
-    const type = req.body.type;
-    const deletedType = await typeService.deleteType(type);
+    const typeId = req.params.typeId;
+    const deletedType = await typeService.deleteType(typeId);
     res.status(OK).send({
       status: OK,
-      message: `Type ${type} deleted successfully`,
+      message: `Type ${deletedType.type} deleted successfully`,
     });
   }
 

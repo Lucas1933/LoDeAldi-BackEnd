@@ -39,7 +39,7 @@ export default class FoodController {
     const deletedFood = await foodService.deleteFood(id);
     res.status(OK).send({
       status: OK,
-      message: "Food deleted succesfully",
+      message: `Food ${deletedFood.name} deleted successfully`,
       payload: deletedFood,
     });
   }
