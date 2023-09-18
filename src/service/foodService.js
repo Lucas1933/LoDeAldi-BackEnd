@@ -1,5 +1,7 @@
 import FoodRepository from "../dao/repository/foodRepository.js";
 import { InvalidFoodIdError } from "../errors/foodErrors.js";
+import fs from "fs";
+import __dirname from "../relative_path.js";
 const foodRepository = new FoodRepository();
 export default class FoodService {
   async getFoodByType(type) {
@@ -7,11 +9,26 @@ export default class FoodService {
     return foods;
   }
 
-  async createFood(food) {
+  async createFood(food, thumbnails) {
+    food.thumbnails = [];
+    for (const file of thumbnails) {
+      food.thumbnails.push(file.filename);
+    }
     const createdFood = await foodRepository.createFood(food);
     return createdFood;
   }
-
+  getImage(path) {
+    const absolutePath = __dirname + "/food-images" + path;
+    console.log(absolutePath);
+    try {
+      if (fs.existsSync(absolutePath)) {
+        const imageStream = fs.createReadStream(imagePath);
+        return imageStream;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   async updateFood(id, food) {
     await this.isIdValidAndFoodExists(id);
     await this.isValidFood(food);

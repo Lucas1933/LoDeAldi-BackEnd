@@ -1,15 +1,22 @@
+import __dirname from "../relative_path.js";
 import FoodService from "../service/foodService.js";
 import { OK } from "../utils/httpReponses.js";
 const foodService = new FoodService();
 export default class FoodController {
   async createFood(req, res) {
     const newFood = req.body;
-    const createdFood = await foodService.createFood(newFood);
+    const createdFood = await foodService.createFood(newFood, req.files);
     res.status(OK).send({
       status: OK,
       message: "Food created succesfully",
       payload: createdFood,
     });
+  }
+
+  async getImage(req, res) {
+    const path = "/" + req.params.type + "/" + req.params.imageName;
+    /*  const image = foodService.getImage(path); */
+    res.sendFile(__dirname + "/food-images" + path);
   }
   async getFood(req, res) {
     const type = req.params.type;
