@@ -9,11 +9,13 @@ export default class FoodService {
     return foods;
   }
 
-  async createFood(food, thumbnails) {
-    food.thumbnails = [];
-    for (const file of thumbnails) {
+  async createFood(food, files) {
+    console.log(files);
+    for (const file of files) {
+      console.log(file.filename);
       food.thumbnails.push(file.filename);
     }
+
     const createdFood = await foodRepository.createFood(food);
     return createdFood;
   }

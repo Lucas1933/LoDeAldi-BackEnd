@@ -4,8 +4,12 @@ import { OK } from "../utils/httpReponses.js";
 const foodService = new FoodService();
 export default class FoodController {
   async createFood(req, res) {
-    const newFood = req.body;
-    const createdFood = await foodService.createFood(newFood, req.files);
+    const { name, type, description, price } = req.body;
+    console.log(req.files);
+    const createdFood = await foodService.createFood(
+      { name, type, description, price, thumbnails: [] },
+      req.files
+    );
     res.status(OK).send({
       status: OK,
       message: "Food created succesfully",
