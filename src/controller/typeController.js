@@ -31,7 +31,6 @@ export default class TypeController {
     try {
       const id = req.body._id;
       const type = req.body.type;
-      console.log(req.body);
       const updatedType = await typeService.updateType(id, type);
       res.status(OK).send({
         status: OK,

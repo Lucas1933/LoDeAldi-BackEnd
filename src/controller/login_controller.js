@@ -7,7 +7,6 @@ export default class LoginController {
     try {
       const email = req.body.email;
       const password = req.body.password;
-      console.log(req.body);
       await loginService.validateAdmin(email, password);
       res.status(OK).send({
         status: OK,

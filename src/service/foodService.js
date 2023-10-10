@@ -10,9 +10,7 @@ export default class FoodService {
   }
 
   async createFood(food, files) {
-    console.log(files);
     for (const file of files) {
-      console.log(file.filename);
       food.thumbnails.push(file.filename);
     }
 
@@ -21,7 +19,6 @@ export default class FoodService {
   }
   getImage(path) {
     const absolutePath = __dirname + "/food-images" + path;
-    console.log(absolutePath);
     try {
       if (fs.existsSync(absolutePath)) {
         const imageStream = fs.createReadStream(imagePath);

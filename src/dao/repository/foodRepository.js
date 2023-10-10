@@ -17,7 +17,6 @@ export default class FoodRepository {
     return updatedFood;
   }
   async updateFoodsType(currentType, newType) {
-    console.log(currentType, newType);
     const updatedFoods = await foodModel.updateMany(
       { type: currentType },
       { type: newType }

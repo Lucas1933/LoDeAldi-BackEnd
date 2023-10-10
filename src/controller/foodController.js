@@ -5,7 +5,6 @@ const foodService = new FoodService();
 export default class FoodController {
   async createFood(req, res) {
     const { name, type, description, price } = req.body;
-    console.log(req.files);
     const createdFood = await foodService.createFood(
       { name, type, description, price, thumbnails: [] },
       req.files
