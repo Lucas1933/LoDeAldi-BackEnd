@@ -21,7 +21,7 @@ const comboRouter = new ComboRouter();
 const loginRouter = new LoginRouter();
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/lodealdi-api/v1/food", foodRouter.getRouter());
 app.use("/lodealdi-api/v1/type", typeRouter.getRouter());
