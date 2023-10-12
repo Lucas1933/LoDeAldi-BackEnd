@@ -13,8 +13,11 @@ import errorHandler from "./middleware/errorHandler.js";
 const app = express();
 const port = config.app.PORT;
 
-app.use(cors());
-
+app.use(
+  cors({
+    origin: config.app.API_URL,
+  })
+);
 const foodRouter = new FoodRouter();
 const typeRouter = new TypeRouter();
 const comboRouter = new ComboRouter();
