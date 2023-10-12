@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import "./appConfig/config.js";
+import config from "./appConfig/config.js";
 import connectToDatabase from "./dao/dbConfig.js";
 
 import FoodRouter from "./routes/foodRouter.js";
@@ -11,7 +11,7 @@ import LoginRouter from "./routes/login_router.js";
 import errorHandler from "./middleware/errorHandler.js";
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = config.app.PORT;
 
 app.use(cors());
 
@@ -28,7 +28,7 @@ app.use("/lodealdi-api/v1/type", typeRouter.getRouter());
 app.use("/lodealdi-api/v1/combo", comboRouter.getRouter());
 app.use("/lodealdi-api/v1/login", loginRouter.getRouter());
 
-connectToDatabase();
+connectToDatabase(config.mongo.URL);
 
 app.use(errorHandler);
 

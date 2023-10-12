@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./src/app.js",
+    "dev": "set NODE_ENV=dev&& nodemon ./src/app.js",
+    "prod": "nodemon ./src/app.js",
     "start": "node ./src/app.js"
   },
   "keywords": [],
@@ -14,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "commander": "^11.0.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "mongoose": "^7.4.3",
