@@ -16,6 +16,8 @@ const port = config.app.PORT;
 app.use(
   cors({
     origin: config.app.API_URL,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
   })
 );
 const foodRouter = new FoodRouter();
