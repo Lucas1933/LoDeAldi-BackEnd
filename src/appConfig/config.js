@@ -3,6 +3,7 @@ dotenv.config({
   path: process.env.NODE_ENV == "dev" ? "./.env.dev" : "./.env.prod",
 });
 console.log(process.env.API_URL);
+console.log(process.env.DB_URL);
 export default {
   app: {
     PORT: process.env.PORT || 8080,
