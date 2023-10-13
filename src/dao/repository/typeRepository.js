@@ -11,7 +11,6 @@ export default class TypeRepository {
   }
 
   async updateType(id, type) {
-    console.log(id, type);
     const updatedType = await typeModel.findByIdAndUpdate(
       id,
       { type },
@@ -19,7 +18,7 @@ export default class TypeRepository {
         new: true,
       }
     );
-    console.log(updatedType);
+
     return updatedType;
   }
 

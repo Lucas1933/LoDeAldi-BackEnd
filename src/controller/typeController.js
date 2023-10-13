@@ -3,7 +3,6 @@ import { CREATED, OK } from "../utils/httpReponses.js";
 const typeService = new TypeService();
 export default class TypeController {
   async createType(req, res) {
-    console.log(req.body.type);
     const type = req.body.type;
     const createdType = await typeService.createType(type);
     res.status(CREATED).send({
