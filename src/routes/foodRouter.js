@@ -28,6 +28,7 @@ export default class FoodRouter extends BaseRouter {
     );
     this.get("/:type", foodController.getFood);
     this.get("/:type/:imageName", foodController.getImage);
+    this.delete("/:type/:imageName/:id", foodController.deleteImage);
     this.put("/", foodController.updateFood);
     this.delete("/:foodId", foodController.deleteFood);
   }

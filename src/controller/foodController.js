@@ -53,4 +53,16 @@ export default class FoodController {
       payload: deletedFood,
     });
   }
+
+  async deleteImage(req, res) {
+    await foodService.deleteOneImage(
+      req.params.imageName,
+      req.params.type,
+      req.params.id
+    );
+    res.status(OK).send({
+      status: OK,
+      message: `image deleted successfully`,
+    });
+  }
 }

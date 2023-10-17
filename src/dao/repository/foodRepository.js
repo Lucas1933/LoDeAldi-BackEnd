@@ -37,4 +37,16 @@ export default class FoodRepository {
     const result = await foodModel.exists({ _id: id });
     return result;
   }
+
+  async deleteImage(imageName, id) {
+    const food = await foodModel.findById(id);
+    const thumbnails = food.thumbnails;
+    const indexImgToRemove = thumbnails.indexOf(imageName);
+    if (indexImgToRemove !== -1) {
+      thumbnails.splice(indexImgToRemove, 1);
+    } else {
+      console.log(`${imageName} not found.`);
+    }
+    return await this.updateFood(id, food);
+  }
 }

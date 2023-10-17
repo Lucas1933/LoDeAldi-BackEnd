@@ -1,6 +1,7 @@
 import FoodRepository from "../dao/repository/foodRepository.js";
 import { InvalidFoodIdError } from "../errors/foodErrors.js";
 import fs from "fs";
+import path from "path";
 import __dirname from "../relative_path.js";
 const foodRepository = new FoodRepository();
 export default class FoodService {
@@ -17,6 +18,23 @@ export default class FoodService {
     const createdFood = await foodRepository.createFood(food);
     return createdFood;
   }
+
+  async updateFood(id, food) {
+    await this.isIdValidAndFoodExists(id);
+
+    const updatedFood = await foodRepository.updateFood(id, food);
+    return updatedFood;
+  }
+
+  async deleteFood(id) {
+    const deletedFood = await foodRepository.deleteFood(id);
+    await this.deleteImages(deletedFood.thumbnails, deletedFood.type);
+    return deletedFood;
+  }
+  async updateFoodsType(currentType, newType) {
+    const foods = await foodRepository.updateFoodsType(currentType, newType);
+    return foods;
+  }
   getImage(path) {
     const absolutePath = __dirname + "/food-images" + path;
     try {
@@ -28,18 +46,30 @@ export default class FoodService {
       console.log(error);
     }
   }
-  async updateFood(id, food) {
-    await this.isIdValidAndFoodExists(id);
-    await this.isValidFood(food);
-    const updatedFood = await foodRepository.updateFood(id, food);
-    return updatedFood;
-  }
+  async deleteImages(imgsArray, type) {
+    const directoryPath = __dirname + "/food-images" + "/" + type;
 
-  async deleteFood(id) {
-    const deletedFood = await foodRepository.deleteFood(id);
-    return deletedFood;
-  }
+    imgsArray.forEach((fileName) => {
+      const filePath = path.join(directoryPath, fileName);
 
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+        console.log(`Deleted ${fileName}`);
+      } else {
+        console.log(`${fileName} does not exist.`);
+      }
+    });
+  }
+  async deleteOneImage(imageName, type, id) {
+    await foodRepository.deleteImage(imageName, id);
+    const imagePath = __dirname + "/food-images" + "/" + type + "/" + imageName;
+    if (fs.existsSync(imagePath)) {
+      fs.unlinkSync(imagePath);
+      console.log(`Deleted ${imagePath}`);
+    } else {
+      console.log(`${imagePath} does not exist.`);
+    }
+  }
   async isIdValidAndFoodExists(id) {
     const isValid = await foodRepository.isIdValid(id);
     if (!isValid) {
@@ -50,10 +80,4 @@ export default class FoodService {
       throw new InvalidFoodIdError(`the food id ${id} does not exists`);
     }
   }
-  async updateFoodsType(currentType, newType) {
-    const foods = await foodRepository.updateFoodsType(currentType, newType);
-    return foods;
-  }
-
-  async isValidFood({ name, description, price, thumbnails }) {}
 }
