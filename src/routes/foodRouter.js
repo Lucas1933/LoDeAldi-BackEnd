@@ -5,9 +5,14 @@ import fs from "fs";
 import multer from "multer";
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
-    const directory = __dirname + "/food-images/" + req.body.type;
-    if (!fs.existsSync(directory)) {
-      fs.mkdirSync(directory);
+    const baseDirectory = __dirname + "/food-images";
+    const foodTypeDirectory = baseDirectory + "/" + req.body.type;
+    if (!fs.existsSync(baseDirectory)) {
+      fs.mkdirSync(baseDirectory);
+    }
+
+    if (!fs.existsSync(foodTypeDirectory)) {
+      fs.mkdirSync(foodTypeDirectory);
     }
     callback(null, directory);
   },
