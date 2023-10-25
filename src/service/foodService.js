@@ -11,16 +11,34 @@ export default class FoodService {
   }
 
   async createFood(food, files) {
-    for (const file of files) {
-      food.thumbnails.push(file.filename);
+    if (files) {
+      for (const file of files) {
+        food.thumbnails.push(file.filename);
+      }
+      const parsedThumbnails = JSON.stringify(food.thumbnails);
+      food.thumbnails = parsedThumbnails;
+    } else {
+      const parsedThumbnails = JSON.stringify(food.thumbnails);
+      food.thumbnails = parsedThumbnails;
     }
 
     const createdFood = await foodRepository.createFood(food);
     return createdFood;
   }
 
-  async updateFood(id, food) {
+  async updateFood(id, food, files) {
     await this.isIdValidAndFoodExists(id);
+    const thumbnails = JSON.parse(food.thumbnails);
+    if (files) {
+      for (const file of files) {
+        thumbnails.push(file.filename);
+      }
+      const parsedThumbnails = JSON.stringify(thumbnails);
+      food.thumbnails = parsedThumbnails;
+    } else {
+      const parsedThumbnails = JSON.stringify(thumbnails);
+      food.thumbnails = parsedThumbnails;
+    }
 
     const updatedFood = await foodRepository.updateFood(id, food);
     return updatedFood;
@@ -47,9 +65,10 @@ export default class FoodService {
     }
   }
   async deleteImages(imgsArray, type) {
+    const parsedImgsArray = JSON.parse(imgsArray);
     const directoryPath = __dirname + "/food-images" + "/" + type;
 
-    imgsArray.forEach((fileName) => {
+    parsedImgsArray.forEach((fileName) => {
       const filePath = path.join(directoryPath, fileName);
 
       if (fs.existsSync(filePath)) {

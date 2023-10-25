@@ -15,7 +15,20 @@ export default class FoodController {
       payload: createdFood,
     });
   }
-
+  async updateFood(req, res, next) {
+    try {
+      const id = req.body._id;
+      const food = req.body;
+      const files = req.files;
+      const updatedFood = await foodService.updateFood(id, food, files);
+      res.status(OK).send({
+        status: OK,
+        message: "Food updated succesfully",
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
   async getImage(req, res) {
     const path = "/" + req.params.type + "/" + req.params.imageName;
     /*  const image = foodService.getImage(path); */
@@ -29,19 +42,6 @@ export default class FoodController {
       message: "Foods retrived succesfully",
       payload: foods,
     });
-  }
-  async updateFood(req, res, next) {
-    try {
-      const id = req.body._id;
-      const food = req.body;
-      const updatedFood = await foodService.updateFood(id, food);
-      res.status(OK).send({
-        status: OK,
-        message: "Food updated succesfully",
-      });
-    } catch (error) {
-      next(error);
-    }
   }
 
   async deleteFood(req, res) {
