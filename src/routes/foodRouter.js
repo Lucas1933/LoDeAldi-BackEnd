@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
     if (!fs.existsSync(foodTypeDirectory)) {
       fs.mkdirSync(foodTypeDirectory);
     }
-    callback(null, directory);
+    callback(null, foodTypeDirectory);
   },
   filename: function (req, file, callback) {
     console.log(req.body);
